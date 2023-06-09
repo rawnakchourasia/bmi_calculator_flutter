@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+const double bottomContainerHeight = 20;
+const Color activeCardColor = Color(0xff1d1e33);
+const Color bottomContainerColor = Color(0xffeb1555);
+
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
 
@@ -19,36 +23,42 @@ class _InputPageState extends State<InputPage> {
       body: Column(
         children: [
           Expanded(
-              child: Row(children: [
+              child: Row(children: const [
             Expanded(
                 child: ReusableCard(
-              colour: const Color(0xff1d1e33),
+              colour: activeCardColor,
             )),
             Expanded(
               child: ReusableCard(
-                colour: const Color(0xff1d1e33),
+                colour: activeCardColor,
               ),
             )
           ])),
           Expanded(
-              child: Row(children: [
+              child: Row(children: const [
             Expanded(
                 child: ReusableCard(
-              colour: const Color(0xff1d1e33),
+              colour: activeCardColor,
             ))
           ])),
           Expanded(
-              child: Row(children: [
+              child: Row(children: const [
             Expanded(
                 child: ReusableCard(
-              colour: const Color(0xff1d1e33),
+              colour: activeCardColor,
             )),
             Expanded(
               child: ReusableCard(
-                colour: const Color(0xff1d1e33),
+                colour: activeCardColor,
               ),
             )
           ])),
+          Container(
+            color: bottomContainerColor,
+            margin: const EdgeInsets.only(top: 10),
+            width: double.infinity,
+            height: bottomContainerHeight,
+          ),
         ],
       ),
     );
@@ -56,9 +66,8 @@ class _InputPageState extends State<InputPage> {
 }
 
 class ReusableCard extends StatelessWidget {
-  const ReusableCard({super.key, required this.colour});
-
   final Color colour;
+  const ReusableCard({super.key, required this.colour});
 
   @override
   Widget build(BuildContext context) {
