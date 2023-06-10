@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './widgets/icon_content.dart';
 import './widgets/reusable_card.dart';
-
-const double bottomContainerHeight = 80;
-const Color activeCardColor = Color(0xff1d1e33);
-const Color inactiveCardColor = Color(0xff111328);
-const Color bottomContainerColor = Color(0xffeb1555);
+import 'constants.dart';
 
 enum Gender { male, female }
 
@@ -19,6 +15,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +26,7 @@ class _InputPageState extends State<InputPage> {
         backgroundColor: primaryColor,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
               child: Row(children: [
@@ -40,8 +38,8 @@ class _InputPageState extends State<InputPage> {
                 });
               },
               colour: selectedGender == Gender.male
-                  ? activeCardColor
-                  : inactiveCardColor,
+                  ? kActiveCardColor
+                  : kInactiveCardColor,
               cardChild: const IconContent(
                 icon: FontAwesomeIcons.mars,
                 label: "MALE",
@@ -55,8 +53,8 @@ class _InputPageState extends State<InputPage> {
                   });
                 },
                 colour: selectedGender == Gender.female
-                    ? activeCardColor
-                    : inactiveCardColor,
+                    ? kActiveCardColor
+                    : kInactiveCardColor,
                 cardChild: const IconContent(
                   icon: FontAwesomeIcons.venus,
                   label: "FEMALE",
@@ -65,29 +63,64 @@ class _InputPageState extends State<InputPage> {
             )
           ])),
           Expanded(
-              child: Row(children: const [
+              child: Row(children: [
             Expanded(
                 child: ReusableCard(
-              colour: activeCardColor,
+              colour: kActiveCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'HEIGHT',
+                    style: kLabelTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        height.toString(),
+                        style: kNumberTextStyle,
+                      ),
+                      const Text(
+                        'cm',
+                        style: kLabelTextStyle,
+                      ),
+                    ],
+                  ),
+                  Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      activeColor: const Color(0XFFEB1555),
+                      inactiveColor: const Color(0XFF8d8e98),
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.round();
+                        });
+                      })
+                ],
+              ),
             ))
           ])),
           Expanded(
               child: Row(children: const [
             Expanded(
                 child: ReusableCard(
-              colour: activeCardColor,
+              colour: kActiveCardColor,
             )),
             Expanded(
               child: ReusableCard(
-                colour: activeCardColor,
+                colour: kActiveCardColor,
               ),
             )
           ])),
           Container(
-            color: bottomContainerColor,
+            color: kBottomContainerColor,
             margin: const EdgeInsets.only(top: 10),
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           ),
         ],
       ),
