@@ -6,6 +6,7 @@ import '../widgets/reusable_card.dart';
 import 'results_page.dart';
 import '../constants.dart';
 import '../widgets/round_icon_button.dart';
+import 'package:bmi_calculator_flutter/calculator_brain.dart';
 
 enum Gender { male, female }
 
@@ -132,6 +133,7 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     colour: kActiveCardColor,
                     cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text('WEIGHT', style: kLabelTextStyle),
                         Text(
@@ -168,6 +170,7 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     colour: kActiveCardColor,
                     cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text('AGE', style: kLabelTextStyle),
                         Text(
@@ -205,8 +208,15 @@ class _InputPageState extends State<InputPage> {
           ),
           bottomButton(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ResultsPage()));
+              CalculatorBrain calc =
+                  CalculatorBrain(height: height, weight: weight);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResultsPage(
+                          bmiResult: calc.calculateBMI(),
+                          resultText: calc.getResult(),
+                          interpretation: calc.getInterpretation())));
             },
             text: 'Calculate',
           ),
